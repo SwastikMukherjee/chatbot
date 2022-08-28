@@ -13,6 +13,9 @@ class GraphEdge;
 class GraphNode {
   
 private:
+  ////STUDENT CODE
+  //Using vector of unique pointers
+  
   // data handles (owned)
   std::vector<std::unique_ptr<GraphEdge>> _childEdges;  // edges to subsequent nodes
 
@@ -41,7 +44,11 @@ public:
   void AddEdgeToParentNode(GraphEdge *edge);
   void AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge);
 
+  ////STUDENT CODE
+  //Using move semantics
   void MoveChatbotHere(ChatBot chatbot);
+  
+  ////EOF STUDENT CODE
 
   void MoveChatbotToNewNode(GraphNode *newNode);
 };
