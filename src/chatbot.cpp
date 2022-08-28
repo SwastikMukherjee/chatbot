@@ -34,7 +34,7 @@ ChatBot::ChatBot(std::string filename) {
 
 ChatBot::~ChatBot() {
   
-    std::cout << "ChatBot Destructor (1)" << std::endl;
+    std::cout << "ChatBot Destructor" << std::endl;
 
     // deallocate heap memory
     if(_image != NULL) // Attention: wxWidgets used NULL and not nullptr
@@ -44,9 +44,12 @@ ChatBot::~ChatBot() {
     }
 }
 
+//// STUDENT CODE
+//Creating copier funnction and operator to comply with rule of 5
+
 ChatBot::ChatBot(const ChatBot &source) {
   
-  std::cout << "ChatBot Copy Constructor (2)" << std::endl;
+  std::cout << "ChatBot Copy Constructor" << std::endl;
 
     _chatLogic = source._chatLogic;
     _chatLogic->SetChatbotHandle(this);
@@ -57,9 +60,10 @@ ChatBot::ChatBot(const ChatBot &source) {
     *_image = *source._image;
 }
 
+
 ChatBot &ChatBot::operator=(const ChatBot &source) {
   
-    std::cout << "ChatBot Copy Assignment Operator (3)" << std::endl;
+    std::cout << "ChatBot Copy Assignment Operator)" << std::endl;
 
     if (this == &source)
         return *this;
@@ -77,7 +81,7 @@ ChatBot &ChatBot::operator=(const ChatBot &source) {
 
 ChatBot::ChatBot(ChatBot &&source) {
 
-  std::cout << "ChatBot Move constructor (4)" << std::endl;
+  std::cout << "ChatBot Move constructor" << std::endl;
 
     _chatLogic = source._chatLogic;
     _chatLogic->SetChatbotHandle(this);
@@ -93,7 +97,7 @@ ChatBot::ChatBot(ChatBot &&source) {
 
 ChatBot &ChatBot::operator=(ChatBot &&source) {
 
-    std::cout << "ChatBot Move Assignment Operator (5)" << std::endl;
+    std::cout << "ChatBot Move Assignment Operator" << std::endl;
 
     if (this == &source)
         return *this;
@@ -112,6 +116,8 @@ ChatBot &ChatBot::operator=(ChatBot &&source) {
 
     return *this;
 }
+////
+//// EOF STUDENT CODE
 
 void ChatBot::ReceiveMessageFromUser(std::string message) {
       
