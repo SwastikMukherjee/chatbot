@@ -1,36 +1,48 @@
-#ifndef GRAPHEDGE_H_
-#define GRAPHEDGE_H_
+#include "graphedge.h"
+#include "graphnode.h"
 
-#include <vector>
-#include <string>
+GraphNode::GraphNode(int id) {
+  
+    _id = id;
+}
+////STUDENT CODE
+//using unique pointer destructor
 
-class GraphNode; // forward declaration
+GraphNode::~GraphNode() {}
+////EOF student code
 
-class GraphEdge
-{
-private:
-    // data handles (not owned)
-    GraphNode *_childNode;
-    GraphNode *_parentNode;
+void GraphNode::AddToken(std::string token) {
+  
+    _answers.push_back(token);
+}
 
-    // proprietary members
-    int _id;
-    std::vector<std::string> _keywords; // list of topics associated with this edge
-    
+void GraphNode::AddEdgeToParentNode(GraphEdge *edge) {
+  
+    _parentEdges.push_back(edge);
+}
 
-public:
-    // constructor / desctructor
-    GraphEdge(int id);
+void GraphNode::AddEdgeToChildNode(std::unique_ptr<GraphEdge> edge) {
+  
+    _childEdges.push_back(std::move(edge));
+}
 
-    // getter / setter
-    int GetID() { return _id; }
-    void SetChildNode(GraphNode *childNode);
-    void SetParentNode(GraphNode *parentNode);
-    GraphNode *GetChildNode() { return _childNode; }
-    std::vector<std::string> GetKeywords() { return _keywords; }
+////STUDENT CODE 
+//Uing move semantics
 
-    // proprietary functions
-    void AddToken(std::string token);
-};
+void GraphNode::MoveChatbotHere(ChatBot chatbot) {
+  
+    _chatBot = std::move(chatbot);
+    _chatBot.SetCurrentNode(this);
+}
 
-#endif /* GRAPHEDGE_H_ */
+void GraphNode::MoveChatbotToNewNode(GraphNode *newNode) {
+  
+    newNode->MoveChatbotHere(std::move(_chatBot));
+}
+////EOF STUDENR CODE
+
+GraphEdge *GraphNode::GetChildEdgeAtIndex(int index) {
+    ////STUDENT CODE
+    return _childEdges[index].get();
+    ////EOF STUDENR CODE
+}
